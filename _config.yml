@@ -1,12 +1,12 @@
 # Welcome to Jekyll!
 
 # Website settings
-title: "Resume"
+title: "SG"
 description: "Saurabh's blog,use Jekyll and github pages."
 keywords: "Saurabh,Jalpc,blog,Jekyll,github,gh-pages"
 baseurl: "/"
-url: "http://saurabh1e.github.io"
-#url: "http://127.0.0.1:4000"
+#url: "http://saurabh1e.github.io"
+url: "http://127.0.0.1:4000"
 
 # author
 author:
@@ -17,12 +17,9 @@ author:
   facebook_username: 'saurabhg1e'
   github_username: 'saurabh1e'
   avatar: 'static/img/landing/saurabh.jpg'
-  desc: "As a full stack web developer I love the web and how it can help people. I enjoy everything from architecture designing,  back-end development, to front-end development and hosting.
-
-         I always strive to find solutions rather than forcing certain techniques on to the problem. Every line of code introduce new potential bugs and increase the cost of development and maintenance.
-         Therefore code should be seen as a necessary evil. If it's possible to solve the problem partly with existing products or libraries that is often the best solution.
-
-         My goal and motivation is to help people take advantage of the web, while learning and having fun."
+  desc: "As a full stack web developer I love the web and how it can help people.
+  I enjoy everything from architecture designing,  back-end development, to front-end development and deployment.
+  My goal and motivation is to help people take advantage of the web, while learning and having fun."
 
 
 # comment

@@ -8,17 +8,11 @@
 - name: Linux
   href: '/linux/'
 
-- name: HTML
-  href: '/html/'
-
 - name: Database
   href: '/database/'
 
-- name: Mac
-  href: '/mac/'
+- name: Dev Ops
+  href: '/dev-ops/'
 
 - name: Life
   href: '/life/'
-
-- name: Donate
-  href: '/donate/'

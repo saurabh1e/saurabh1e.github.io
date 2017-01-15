@@ -8,26 +8,29 @@
 - name: RestFul Api's
   percentage: 75
 
+- name: NodeJS
+  percentage: 75
+
 - name: Linux/Shell
   percentage: 80
 
 - name: MySQL/Postgresql
   percentage: 80
 
-- name: Angular2
-  percentage: 80
-
-- name: AngularJS
-  percentage: 80
-
-- name: NodeJS
-  percentage: 75
-
 - name: GoogleCloud
   percentage: 70
 
 - name: AWS
   percentage: 70
+
+- name: Kubernetes
+  percentage: 70
+
+- name: Angular2
+  percentage: 80
+
+- name: AngularJS
+  percentage: 80
 
 - name: MongoDB
   percentage: 65
