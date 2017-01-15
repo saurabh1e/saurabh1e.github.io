@@ -5595,7 +5595,7 @@ body.landing-page {
     transition:all .3s ease-in-out 0s
 }
 .landing-page .navbar-default .nav li a {
-    color:#fff;
+    color:grey;
     font-family:'Open Sans',helvetica,arial,sans-serif;
     font-weight:700;
     letter-spacing:1px;
@@ -5987,7 +5987,7 @@ body.landing-page {
     color:inherit
 }
 .landing-page .navbar-default .nav li a {
-    color:#676a6c
+    color: #676a6c !important;
 }
 .landing-page .navbar-default .nav li a:hover {
     color:#3385FF

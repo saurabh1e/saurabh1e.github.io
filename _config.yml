@@ -1,23 +1,29 @@
 # Welcome to Jekyll!
 
 # Website settings
-title: "Jalpc"
-description: "Jack's blog,use Jekyll and github pages."
-keywords: "Jack,Jalpc,blog,Jekyll,github,gh-pages"
+title: "Resume"
+description: "Saurabh's blog,use Jekyll and github pages."
+keywords: "Saurabh,Jalpc,blog,Jekyll,github,gh-pages"
 baseurl: "/"
-url: "http://www.jack003.com"
-# url: "http://127.0.0.1:4000"
+#url: "http://www.jack003.com"
+url: "http://127.0.0.1:4000"
 
 # author
 author:
-  name: 'Jack'
-  first_name: 'Jia'
-  last_name: 'Kun'
-  email: 'me@jack003.com'
-  facebook_username: 'jiakunnj'
-  github_username: 'JiaKunUp'
-  avatar: 'static/img/landing/Jack.jpg'
-  desc: 'I am a Full Stack engineer with website development, automation Ops and writing scripts experience. Life is a continuous learning process, so work makes me more rigorous, travel makes my life more colorful. I can make lots of friends when I coding and travel.'
+  name: 'Saurabh'
+  first_name: 'Saurabh'
+  last_name: 'Gupta'
+  email: 'saurabh.1e1@gmail.com'
+  facebook_username: 'saurabhg1e'
+  github_username: 'saurabh1e'
+  avatar: 'static/img/landing/saurabh.jpg'
+  desc: "As a full stack web developer I love the web and how it can help people. I enjoy everything from architecture designing,  back-end development, to front-end development and hosting.
+
+         I always strive to find solutions rather than forcing certain techniques on to the problem. Every line of code introduce new potential bugs and increase the cost of development and maintenance.
+         Therefore code should be seen as a necessary evil. If it's possible to solve the problem partly with existing products or libraries that is often the best solution.
+
+         My goal and motivation is to help people take advantage of the web, while learning and having fun."
+
 
 # comment
 changyan:
