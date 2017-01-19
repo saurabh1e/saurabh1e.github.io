@@ -39,10 +39,10 @@ $ flask run
 
 > - Install SQLAlchemy and Flask-SQLAlchemy.
 > - You must have sqlite installed and running.
-	
-We will be adding three models User, Role, UserRole. 
 
-``` python 
+We will be adding three models User, Role, UserRole.
+
+``` python
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -55,7 +55,7 @@ db = SQLAlchemy(app)
 
 class User(db.Model):
 	__tablename__ = 'user'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -68,20 +68,20 @@ class User(db.Model):
 
 class Role(db.Model):
 	__tablename__ = 'role'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.Text, unique=True)
 	created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
-	
+
 	def __repr__(self):
         return '<id {} role {}>'.format(self.id, self.name)
 
 
 class UserRole(db.Model):
 	__tablename__ = 'user_role'
-	
+
 	id = db.Column(db.Integer, primary_key=True)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
@@ -115,35 +115,36 @@ All the models also contains a **`__repr__()`** function which makes the objects
 >**Note**:
 
 >Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
+
 >Lets add some data and see.
-```
->> user = User()
->> user.name = 'username'
->> user.id = 1
-```
+>>`>> user = User()`
+
+>>`>> user.name = 'username'`
+
+>>`>> user.id = 1`
+
 
 >After adding some data it will look like this.
-``` python   
->> print(user)
->> <id 1 user username>
-```
+>>`>> print(user)`
+
+>>`>> <id 1 user username>`
 
 Lets see how we can make it more readable and concise by writting two more classes BaseMixin and ReprMixin.
 
-  
+
 ```python
 import re
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.schema import Index
-     
+
 def to_underscore(name):
 
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
- 
+
  class BaseMixin(object):
- 
+
      @declared_attr
      def __tablename__(self):
          return to_underscore(self.__name__)
@@ -151,8 +152,8 @@ def to_underscore(name):
      id = db.Column(db.Integer, primary_key=True)
      created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
      updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
- 
- 
+
+
 class ReprMixin(object):
 
     __repr_fields__ = ['id', 'name']
@@ -247,14 +248,14 @@ Start a python  console and create your first object.
 ``` bash
 $ python
 ```
-``` python 
+``` python
 >> from app import *
 >> user = User('saurabh', 'saurabh.1e1@gmail.com')
 >> db.session.add(user)
 >> db.session.commit()
 >> user
 >> <User id=1 name=saurabh>
-    
+
 ```
 
 ### Adding More Fields
@@ -269,11 +270,11 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 class User(db.Model, BaseMixin, ReprMixin):
     __tablename__ = 'user'
-    
+
 	email = db.Column(db.String(120), unique=True)
 	password = db.Column(db.String(255))
 	first_name = db.Column(db.String(40), nullable=False)
-	last_name = db.Column(db.String(40))    
+	last_name = db.Column(db.String(40))
 	profile_picture = db.Column(db.Text()))
 	bio = db.Column(db.Text()))
 	active = db.Column(db.Boolean())
@@ -283,7 +284,7 @@ class User(db.Model, BaseMixin, ReprMixin):
 	@hybrid_property
 	def name(self):
 		return '{}'.format(self.first_name) + (' {}'.format(self.last_name) if self.last_name else '')
-	
+
 ```
 
 >**Note:**
@@ -312,7 +313,7 @@ class User(db.Model, BaseMixin, ReprMixin):
 	 users = db.relationship('User', secondary='user_role', back_populates='roles')
 ```
 **UserRole Model**
-    	
+
 ``` python
 class UserRole(db.Model, BaseMixin, ReprMixin):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -373,7 +374,7 @@ Our UserRole model also contains two relationships which are acting as junction 
 3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
 
 4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
-	
+
 *Dont worry if relationships are not very clear right now*
 
 ### Let's play with SqlAlchemy a little more.
@@ -397,7 +398,7 @@ This will try to search the database for all the users with id one and will scan
 Self explanatory
 
 ```python
->> from sqlalchemy import and_ 
+>> from sqlalchemy import and_
 >> user = User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)).all()
 ```
 
