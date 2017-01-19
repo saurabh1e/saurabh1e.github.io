@@ -359,10 +359,11 @@ We have added a relation **`roles`** in user model and **`users`** in role model
 Our UserRole model also contains two relationships which are acting as junction between roles relation in user and users relationship in roles.
 
 >**Note:**
-	>1. The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
-	2. The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
-	3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
-	4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
+
+>1. The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
+>2. The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
+>3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
+>4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
 
 *Dont worry if relationships are not very clear right now*
 
