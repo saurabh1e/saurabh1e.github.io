@@ -271,9 +271,9 @@ class User(db.Model, BaseMixin, ReprMixin):
 	last_login_at = db.Column(db.DateTime())
 	date_of_birth = db.Column(db.Date)
 
-@hybrid_property
-def name(self):
-	return '{}'.format(self.first_name) + (' {}'.format(self.last_name) if self.last_name else '')
+	@hybrid_property
+	def name(self):
+		return '{}'.format(self.first_name) + (' {}'.format(self.last_name) if self.last_name else '')
 	
 ```
 
