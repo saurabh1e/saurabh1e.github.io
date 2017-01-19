@@ -36,8 +36,8 @@ $ flask run
 
 
 > **Note:**
-###### Install SQLAlchemy and Flask-SQLAlchemy.
-###### You must have sqlite installed and running.
+> - Install SQLAlchemy and Flask-SQLAlchemy.
+> - You must have sqlite installed and running.
 
 
 We will be adding three models User, Role, UserRole.
@@ -113,8 +113,7 @@ Every model contains a **`id`** field which is used as a primary key and a **`cr
 All the models also contains a **`__repr__()`** function which makes the objects more representable and alse help will debugging.
 
 >**Note**:
-
-> Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
+>- Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
 
 >- Lets add some data and see.
 
