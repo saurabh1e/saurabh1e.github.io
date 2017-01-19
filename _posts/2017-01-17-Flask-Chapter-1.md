@@ -96,12 +96,11 @@ The user model and role models are self explanatory. *UserRole* model might look
 UserRole model is called an association table and it acts like a junction between **User** and **Role**. It stores the data of which user is connected to which role.
 
 >**Example:**
-
-|  id   | user_id | role_id|
-|:-----:|:-------:|:------:|
-|  1   |    1    |  1     |
-|  2   |   1     |  2     |
-|  3   |   2     |  1     |
+>|  id      | user_id     |    role_id    |
+>|:--------:|:-----------:|:-------------:|
+>|  1        |    1           |  1               |
+>|  2        |    1           |  2               |
+>|  3        |   2            |  1               |
 
 > This shows that user with id 1 has two roles with id 1 and 2 associated with it and user with id 2 has one role with id 1 associated with it.
 
@@ -124,37 +123,37 @@ Lets see how we can make it more readable and concise by writting two more class
 
   
 ```python
-      import re
-        from sqlalchemy.ext.declarative import declared_attr
-        from sqlalchemy.schema import Index
-        
-        def to_underscore(name):
-        
-            s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-            return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
-        
-        
-        class BaseMixin(object):
-        
-            @declared_attr
-            def __tablename__(self):
-                return to_underscore(self.__name__)
-       
-            id = db.Column(db.Integer, primary_key=True)
-            created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
-            updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
-        
-        
-        class ReprMixin(object):
-        
-            __repr_fields__ = ['id', 'name']
-        
-            def __repr__(self):
-                fields = {f: getattr(self, f, '<BLANK>') for f in self.__repr_fields__}
-                pattern = ['{0}={{{0}}}'.format(f) for f in self.__repr_fields__]
-                pattern = ' '.join(pattern)
-                pattern = pattern.format(**fields)
-                return '<{} {}>'.format(self.__class__.__name__, pattern)
+import re
+from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.schema import Index
+     
+def to_underscore(name):
+
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
+ 
+ class BaseMixin(object):
+ 
+     @declared_attr
+     def __tablename__(self):
+         return to_underscore(self.__name__)
+
+     id = db.Column(db.Integer, primary_key=True)
+     created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
+     updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
+ 
+ 
+class ReprMixin(object):
+
+    __repr_fields__ = ['id', 'name']
+
+    def __repr__(self):
+        fields = {f: getattr(self, f, '<BLANK>') for f in self.__repr_fields__}
+        pattern = ['{0}={{{0}}}'.format(f) for f in self.__repr_fields__]
+        pattern = ' '.join(pattern)
+        pattern = pattern.format(**fields)
+        return '<{} {}>'.format(self.__class__.__name__, pattern)
 ```
 
 By adding BaseMixin and ReprMixin we can put all the repeated code under one class and inherit those classes where ever required.
@@ -262,15 +261,15 @@ from sqlalchemy.ext.hybrid import hybrid_property
 class User(db.Model, BaseMixin, ReprMixin):
     __tablename__ = 'user'
     
-email = db.Column(db.String(120), unique=True)
-password = db.Column(db.String(255))
-first_name = db.Column(db.String(40), nullable=False)
-last_name = db.Column(db.String(40))    
-profile_picture = db.Column(db.Text()))
-bio = db.Column(db.Text()))
-active = db.Column(db.Boolean())
-last_login_at = db.Column(db.DateTime())
-date_of_birth = db.Column(db.Date)
+	email = db.Column(db.String(120), unique=True)
+	password = db.Column(db.String(255))
+	first_name = db.Column(db.String(40), nullable=False)
+	last_name = db.Column(db.String(40))    
+	profile_picture = db.Column(db.Text()))
+	bio = db.Column(db.Text()))
+	active = db.Column(db.Boolean())
+	last_login_at = db.Column(db.DateTime())
+	date_of_birth = db.Column(db.Date)
 
 @hybrid_property
 def name(self):
