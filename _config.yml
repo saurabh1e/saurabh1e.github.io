@@ -23,7 +23,7 @@ author:
 
 
 # comment
-changyan:
+#changyan:
   # appid: cysfY7ULn
   # conf: prod_861928934cecb7a18e15bedaed9dae29
 disqus:
@@ -31,19 +31,19 @@ disqus:
   public_key: kYijEF1CMjYvaZDrvg7EF6ZaUWD5sQKckuuYb2vnSMfQJti7ATn7lmimPUIn6wlZ
 
 # share
-bshare:
+#bshare:
 #  uuid: 513f778e-a8f7-4c20-9ec2-d29cc2328d75
-
+#
 # baidu analytics
-ba:
-  # uuid: 317acca9ef9255b934e46371e471431d
-
+#ba:
+#   uuid: 317acca9ef9255b934e46371e471431d
+#
 # google analytics
-ga:
+#ga:
 #  id: UA-73784599-1
 
 # growingIO
-gio:
+#gio:
 #  id: a49d4901c7853da9
 
 # Build settings

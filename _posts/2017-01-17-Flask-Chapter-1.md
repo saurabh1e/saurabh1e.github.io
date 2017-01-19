@@ -12,7 +12,7 @@ Chapter 1
 
 ### Starting Flask Server
 
-    enter code here
+    
     from flask import Flask
     app = Flask(__name__)
 
@@ -20,6 +20,15 @@ Chapter 1
 	def hello_world():
 	    return 'Hello, World!'
 
+
+``` python
+a = 's'
+```
+
+```
+sql
+
+```
 Save a file with the above code and start the server by running following commands.
 
     $ export FLASK_APP=<filename>
