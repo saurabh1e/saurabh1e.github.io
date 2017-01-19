@@ -4,37 +4,41 @@
 #  gh_user: 'JiaKunUp'
 #  repo: 'saplatform'
   img: 'static/img/landing/nomnom.png'
-  desc: 'Centralised Order Taking for Restaurants'
+  desc: 'A web app built to take phone orders for restaurants, at call centers. A large number of well
+  estabilished restaurants brands from all over India are using services of NomNom'
 
 - name: 'Order Collation'
   i18n: 'jalpc'
   gh_user: 'JiaKunUp'
 #  repo: 'jalpc_jekyll_theme'
   img: 'static/img/landing/nomnom.png'
-  desc: "Order Collation from multiple sources under one dashboard"
+  desc: " service built to interact with different offline and online Point of Sale system's in India and push all
+  the collated orders from different sources in the respective pos systems."
+
 
 - name: 'Order Pusher'
   i18n: 'angularjs'
   gh_user: 'JiaKunUp'
 #  repo: 'Jalpc-A'
   img: 'static/img/landing/nomnom.png'
-  desc: "Collated Order pushing service to different Point Of Sales"
+  desc: "A service which allows all the orders of a restaurant from different sources (phone, website, zomato etc)
+  to be collated in single place."
 
 - name: 'ShopKare'
   i18n: 'rsser'
   gh_user: 'JiaKunUp'
 #  repo: 'Rsser'
   img: 'static/img/landing/shopkare.png'
-  desc: "eCommerce for grocery"
+  desc: "An eCommerce website built for a client to sell grocery's, house hold essential's and over the counter medicines online."
 
 - name: 'Whomely'
   i18n: 'familycode'
   img: 'static/img/landing/whomely.png'
-  desc: "eCommerce for home like food"
+  desc: "A website built for a client to sell home like dishes."
 
 - name: 'Flask Seed'
   i18n: 'leetcode'
-  gh_user: 'kamyu104'
-#  repo: 'LeetCode'
+  gh_user: 'saurabh1e'
+  repo: 'SuperFlaskSeed'
   img: 'static/img/landing/flask.png'
-  desc: "Seed app for flask with lot of stuff"
+  desc: "Seed app for flask with lot of stuff baked in which allows to generate super awesome RestFul api's"

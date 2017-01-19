@@ -1,9 +1,9 @@
 # skills section data
 - name: Python
-  percentage: 80
+  percentage: 70
 
 - name: Flask
-  percentage: 85
+  percentage: 75
 
 - name: RestFul Api's
   percentage: 75
