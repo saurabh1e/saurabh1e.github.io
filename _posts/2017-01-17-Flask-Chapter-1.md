@@ -96,11 +96,12 @@ The user model and role models are self explanatory. *UserRole* model might look
 UserRole model is called an association table and it acts like a junction between **User** and **Role**. It stores the data of which user is connected to which role.
 
 >**Example:**
->|  id      | user_id     |    role_id    |
->|:--------:|:-----------:|:-------------:|
->|  1        |    1           |  1               |
->|  2        |    1           |  2               |
->|  3        |   2            |  1               |
+
+|  id      | user_id     |  role_id      |
+|:--------:|:-----------:|:-------------:|
+|  1        |    1           |  1        |
+|  2        |    1           |  2        |
+|  3        |   2            |  1        |
 
 > This shows that user with id 1 has two roles with id 1 and 2 associated with it and user with id 2 has one role with id 1 associated with it.
 
@@ -108,14 +109,15 @@ Every model contains a **`id`** field which is used as a primary key and a **`cr
 All the models also contains a **`__repr__()`** function which makes the objects more representable and alse help will debugging.
 
 >**Note**:
-> -  Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
->  - Lets add some data
- `>> user = User()`
- `>> user.name = 'username'`
- `>> user.id = 1`
- > - After adding some data it will look like this.
- `>> print(user)`
- `>> <id 1 user username>`
+> Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
+
+> - Lets add some data and see
+`>> user = User()`
+`>> user.name = 'username'`
+`>> user.id = 1`
+> - After adding some data it will look like this.
+`>> print(user)`
+`>> <id 1 user username>`
 
 
 
