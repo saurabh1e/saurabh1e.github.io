@@ -122,8 +122,8 @@ All the models also contains a **`__repr__()`** function which makes the objects
 ```
 > After adding some data it will look like this.
 ``` python   
->> print(user)
->> <id 1 user username>
+    >> print(user)
+    >> <id 1 user username>
 ```
 
 Lets see how we can make it more readable and concise by writting two more classes BaseMixin and ReprMixin.
