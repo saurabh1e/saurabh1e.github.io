@@ -50,8 +50,10 @@ disqus:
 encoding: "utf-8"
 
 # other settings
-highlighter: rouge
-markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
+#highlighter: rouge
+#markdown: redcarpet
+#kramdown:
+#  input: GFM
+#  syntax_highlighter: rouge
+
+ # This will require each of these gems automatically.
