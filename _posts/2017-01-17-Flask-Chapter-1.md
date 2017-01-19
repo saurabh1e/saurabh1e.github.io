@@ -306,24 +306,27 @@ Database tables are often related to one another, SqlAlchemy relations makes man
 To know more about what sqlalchemy relationships are read [this](http://www.ergo.io/blog/sqlalchemy-relationships-from-beginner-to-advanced/) and [this](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html).
 
 **User Model**
+
 ``` python
-class User(db.Model, BaseMixin, ReprMixin):
-	roles = db.relationship('Role', secondary='user_role', back_populates='users')
+	class User(db.Model, BaseMixin, ReprMixin):
+		roles = db.relationship('Role', secondary='user_role', back_populates='users')
 ```
+
 **Role Model**
 
 ``` python
-  class Role(db.Model, BaseMixin, ReprMixin):
-	 users = db.relationship('User', secondary='user_role', back_populates='roles')
+	class Role(db.Model, BaseMixin, ReprMixin):
+		 users = db.relationship('User', secondary='user_role', back_populates='roles')
 ```
+
 **UserRole Model**
 
 ``` python
-class UserRole(db.Model, BaseMixin, ReprMixin):
-	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-	role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
-	role = db.relationship('Role', foreign_keys=[role_id])
-	user = db.relationship('User', foreign_keys=[user_id])
+	class UserRole(db.Model, BaseMixin, ReprMixin):
+		user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+		role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+		role = db.relationship('Role', foreign_keys=[role_id])
+		user = db.relationship('User', foreign_keys=[user_id])
 ```
 
 We have added a relation **`roles`** in user model and **`users`** in role model, this now allows us to access, add and remove and update a user's roles from a user object and vice a versa.
