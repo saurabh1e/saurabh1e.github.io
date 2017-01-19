@@ -115,19 +115,12 @@ All the models also contains a **`__repr__()`** function which makes the objects
 >**Note**:
 
 >Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
-
 >Lets add some data and see.
-
 >`>> user = User()`
-
 >`>> user.name = 'username'`
-
 >`>> user.id = 1`
-
 >After adding some data it will look like this.
-
 >`>> print(user)`
-
 > `>> <id 1 user username>`
 
 Lets see how we can make it more readable and concise by writting two more classes BaseMixin and ReprMixin.
