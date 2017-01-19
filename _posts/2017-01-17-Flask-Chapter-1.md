@@ -92,11 +92,13 @@ The user model and role models are self explanatory. *UserRole* model might look
 UserRole model is called an association table and it acts like a junction between **User** and **Role**. It stores the data of which user is connected to which role.
 
 >**Example:**
-> |  id   | user_id | role_id|
-> |:-----:|:-------:|:------:|
-> |  1    |    1    |  1     |
-> |  2    |   1     |  2     |
-> |  3    |   2     |  1     |
+
+>|  id   | user_id | role_id|
+>|:-----:|:-------:|:------:|
+> |  1   |    1    |  1    |
+> |  2   |   1     |  2     |
+> |  3   |   2     |  1     |
+
 > This shows that user with id 1 has two roles with id 1 and 2 associated with it and user with id 2 has one role with id 1 associated with it.
 
 Every model contains a **`id`** field which is used as a primary key and a **`created_on`** and **`updated_on`** which keeps track of when the row was created and when was it last time updated.
@@ -105,12 +107,12 @@ All the models also contains a **`__repr__()`** function which makes the objects
 >**Note**:
 > -  Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
 >  - Lets add some data
-> - `>> user = User()`
-> - `>> user.name = 'username'`
-> - `>> user.id = 1`
-> - After adding some data it will look like this.
-> - `>> print(user)`
-> - `>> <id 1 user username>`
+ `>> user = User()`
+ `>> user.name = 'username'`
+ `>> user.id = 1`
+ > - After adding some data it will look like this.
+ `>> print(user)`
+ `>> <id 1 user username>`
 
 
 
@@ -293,41 +295,61 @@ To know more about what sqlalchemy relationships are read [this](http://www.ergo
     
         user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
         role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
-
-		role = db.relationship('Role', foreign_keys=[role_id])
-		user = db.relationship('User', foreign_keys=[user_id])
+        role = db.relationship('Role', foreign_keys=[role_id])
+        user = db.relationship('User', foreign_keys=[user_id])
 
 We have added a relation **`roles`** in user model and **`users`** in role model, this now allows us to access, add and remove and update a user's roles from a user object and vice a versa.
 
 >**Example:**
->>**Adding an user and a role**
->> - ` >> user = User()`
->> -  ` >> user.first_name = 'saurabh'`
->> - ` >> user.email = 'example@gmail.com'`
->> - ` >> db.session..add(user)`
->> - ` >> db.session.commit()`
->> - ` >> role = Role()`
->> - ` >> role.name = 'admin'`
->> - ` >> db.session..add(role)`
->> - ` >> db.session.commit()`
 
->>**Now we can do this**
->> - `>> user.roles.append(role)`
->> - `>> db.session.commit()`
->> - `>> print(user.roles)`
->> - `>> [<Role id=1 name=admin>]`
->> - `>> print(role.users)`
->> - ` >> [<User id=1 name=saurabh>]`
+**Adding an user and a role**.
+
+`>> user = User()`
+
+` >> user.first_name = 'saurabh'`
+
+` >> user.email = 'example@gmail.com'`
+
+` >> db.session..add(user)`
+
+` >> db.session.commit()`
+
+` >> role = Role()`
+
+` >> role.name = 'admin'`
+
+` >> db.session..add(role)`
+
+` >> db.session.commit()`
+
+
+**Now we can do this**
+
+`>> user.roles.append(role)`
+
+`>> db.session.commit()`
+
+`>> print(user.roles)`
+
+`>> [<Role id=1 name=admin>]`
+
+`>> print(role.users)`
+
+` >> [<User id=1 name=saurabh>]`
 
 
 
 Our UserRole model also contains two relationships which are acting as junction between roles relation in user and users relationship in roles.
 
 >**Note:**
- 1. The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
- 2. The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
- 3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
- 4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
+
+1. The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
+
+2. The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
+
+3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
+
+4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
 	
 *Dont worry if relationships are not very clear right now*
 
@@ -336,40 +358,39 @@ Our UserRole model also contains two relationships which are acting as junction 
 **Getting a single row from database**
 
  - `>> user = User.query.get(1)`
-    
+
     This will give us the user with id 1. This query will return the first row that matches the condition.
 
-
 - `>> user = User.query.filter(User.id == 1).first()`
- 
-   Same result as above, same query.
+
+    Same result as above, same query.
 
 - `>> user = User.query.filter(User.id == 1).all()`
 
-	This will try to search the database for all the users with id one and will scan all the rows in the table. This will give us an array of users with id 1.
+    This will try to search the database for all the users with id one and will scan all the rows in the table. This will give us an array of users with id 1.
 
 - `>> user = User.query.filter(User.first_name='saurabh').first()`
-	
+
     Self explanatory
 
 - `>> from sqlalchemy import and_ `
-	
-    `>> user = User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)).all()`
-    
-    This will give user all the users which has role with id 1 associated with it. This query is running a join query between User and UserRole. To see what query sqlalchemy is running you can always do:
+  `>> user = User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)).all()`
 
-   `>> print(User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)))`
-   
+    This will give user all the users which has role with id 1 associated with it.
+    This query is running a join query between User and UserRole.
+    To see what query sqlalchemy is running you can always do:
+
+        `>> print(User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)))`
 
  - `>> user = User.query.join(UserRole, and_(UserRole.user_id==User.id)).join(Role, and_(Role.id == UserRole.role_id, Role.name=='admin')).all()`
- 	
+
     Guess what this is doing?
 
 
 **Have Fun!!**
 
 
-[^rest api]: [RestApi]sss
+[^rest api]: [RestApi]
 
 
 
