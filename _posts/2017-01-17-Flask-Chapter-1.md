@@ -38,7 +38,9 @@ $ flask run
 > **Note:**
 
 > - Install SQLAlchemy and Flask-SQLAlchemy.
+
 > - You must have sqlite installed and running.
+
 
 We will be adding three models User, Role, UserRole.
 
@@ -114,21 +116,22 @@ All the models also contains a **`__repr__()`** function which makes the objects
 
 >**Note**:
 
->Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
+> Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
 
->Lets add some data and see.
+> Lets add some data and see.
 
->`>> user = User()`
+``` python 
+>> user = User()
+>> user.name = 'username'
+>> user.id = 1
+```
 
->`>> user.name = 'username'`
+> After adding some data it will look like this.
 
->`>> user.id = 1`
-
->After adding some data it will look like this.
-
->`>> print(user)`
-
-> `>> <id 1 user username>`
+``` python
+>> print(user)
+>> <id 1 user username>
+```
 
 Lets see how we can make it more readable and concise by writting two more classes BaseMixin and ReprMixin.
 
@@ -303,16 +306,19 @@ Database tables are often related to one another, SqlAlchemy relations makes man
 To know more about what sqlalchemy relationships are read [this](http://www.ergo.io/blog/sqlalchemy-relationships-from-beginner-to-advanced/) and [this](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html).
 
 **User Model**
+
 ``` python
 class User(db.Model, BaseMixin, ReprMixin):
 	roles = db.relationship('Role', secondary='user_role', back_populates='users')
 ```
+
 **Role Model**
 
 ``` python
-  class Role(db.Model, BaseMixin, ReprMixin):
+class Role(db.Model, BaseMixin, ReprMixin):
 	 users = db.relationship('User', secondary='user_role', back_populates='roles')
 ```
+
 **UserRole Model**
 
 ``` python
@@ -327,54 +333,40 @@ We have added a relation **`roles`** in user model and **`users`** in role model
 
 >**Example:**
 
-**Adding an user and a role**.
+>**Adding an user and a role**.
 
-`>> user = User()`
+``` python
+>> user = User()
+>> user.first_name = 'saurabh'
+>> user.email = 'example@gmail.com'
+>> db.session..add(user)
+>> db.session.commit()
+>> role = Role()
+>> role.name = 'admin'
+>> db.session..add(role)
+>> db.session.commit()
+```
 
-` >> user.first_name = 'saurabh'`
+>**Now we can do this**
 
-` >> user.email = 'example@gmail.com'`
-
-` >> db.session..add(user)`
-
-` >> db.session.commit()`
-
-` >> role = Role()`
-
-` >> role.name = 'admin'`
-
-` >> db.session..add(role)`
-
-` >> db.session.commit()`
-
-
-**Now we can do this**
-
-`>> user.roles.append(role)`
-
-`>> db.session.commit()`
-
-`>> print(user.roles)`
-
-`>> [<Role id=1 name=admin>]`
-
-`>> print(role.users)`
-
-` >> [<User id=1 name=saurabh>]`
-
+``` python
+>> user.roles.append(role)
+>> db.session.commit()
+>> print(user.roles)
+>> [<Role id=1 name=admin>]
+>> print(role.users)
+>> [<User id=1 name=saurabh>]
+```
 
 
 Our UserRole model also contains two relationships which are acting as junction between roles relation in user and users relationship in roles.
 
 >**Note:**
 
-1. The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
-
-2. The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
-
-3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
-
-4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
+>1. The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
+>2. The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
+>3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
+>4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
 
 *Dont worry if relationships are not very clear right now*
 
@@ -419,3 +411,4 @@ Guess what this is doing?
 
 
 [^rest api]: [RestApi]
+
