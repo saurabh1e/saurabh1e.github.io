@@ -6222,3 +6222,10 @@ body.rtls .top-navigation #page-wrapper,body.rtls .top-navigation .footer.fixed,
 .rtls #right-sidebar.sidebar-open {
     left:0
 }
+table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    min-height: .01%;
+    overflow-x: auto;
+}
