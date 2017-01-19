@@ -1,4 +1,13 @@
-<h1 id="writing-restful-apis-in-flask">Writing Restful Api’s in Flask</h1>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello!</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><h1 id="writing-restful-apis-in-flask">Writing Restful Api’s in Flask</h1>
 
 <p>In this series of 10 Chapters we will learn basics of writing a <strong>restful api</strong><a href="#fn:rest-api" id="fnref:rest-api" title="See footnote" class="footnote">1</a> service using flask and create a seed app which can be used as building block for large web applications.  This series target audience with basic knowledge of using Flask or any other MVC framework.</p>
 
@@ -104,7 +113,7 @@ UserRole model is called an association table and it acts like a junction betwee
 <blockquote>
   <p><strong>Example:</strong></p>
   
-<table>
+  <table>
 <thead>
 <tr>
   <th align="center">id</th>
@@ -445,4 +454,5 @@ Database tables are often related to one another, SqlAlchemy relations makes man
 
 <p><strong>Have Fun!!</strong></p>
 
-<div class="footnotes"><hr><ol><li id="fn:rest-api">[RestApi] <a href="#fnref:rest-api" title="Return to article" class="reversefootnote">↩</a></li></ol></div>
+<div class="footnotes"><hr><ol><li id="fn:rest-api">[RestApi] <a href="#fnref:rest-api" title="Return to article" class="reversefootnote">↩</a></li></ol></div></div></body>
+</html>
