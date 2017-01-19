@@ -93,11 +93,11 @@ UserRole model is called an association table and it acts like a junction betwee
 
 >**Example:**
 
->|  id   | user_id | role_id|
->|:-----:|:-------:|:------:|
-> |  1   |    1    |  1    |
-> |  2   |   1     |  2     |
-> |  3   |   2     |  1     |
+|  id   | user_id | role_id|
+|:-----:|:-------:|:------:|
+|  1   |    1    |  1     |
+|  2   |   1     |  2     |
+|  3   |   2     |  1     |
 
 > This shows that user with id 1 has two roles with id 1 and 2 associated with it and user with id 2 has one role with id 1 associated with it.
 
@@ -379,8 +379,8 @@ Our UserRole model also contains two relationships which are acting as junction 
     This will give user all the users which has role with id 1 associated with it.
     This query is running a join query between User and UserRole.
     To see what query sqlalchemy is running you can always do:
-
-        `>> print(User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)))`
+    
+        >> print(User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)))
 
  - `>> user = User.query.join(UserRole, and_(UserRole.user_id==User.id)).join(Role, and_(Role.id == UserRole.role_id, Role.name=='admin')).all()`
 
