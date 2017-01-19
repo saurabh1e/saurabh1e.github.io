@@ -118,11 +118,11 @@ All the models also contains a **`__repr__()`** function which makes the objects
 
 >Lets add some data and see.
 
->	`>> user = User()`
+>`>> user = User()`
 
->	`>> user.name = 'username'`
+>`>> user.name = 'username'`
 
->	`>> user.id = 1`
+>`>> user.id = 1`
 
 >After adding some data it will look like this.
 
