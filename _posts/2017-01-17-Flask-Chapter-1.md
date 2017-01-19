@@ -53,11 +53,6 @@ We will be adding three models User, Role, UserRole.
 	    email = db.Column(db.String(120), unique=True, nullable=False)
 	    created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
 	    updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
-
-
-		def __init__(self, name, email):
-	        self.name = name
-	        self.email = email
 	
 	    def __repr__(self):
 	        return '<id {} user {}>'.format(self.id, self.name)
@@ -93,23 +88,33 @@ We will be adding three models User, Role, UserRole.
     def hello_world():
         return 'Hello, World!'
 
+The user model and role models are self explanatory. *UserRole* model might look a little confusing to some,
+UserRole model is called an association table and it acts like a junction between **User** and **Role**. It stores the data of which user is connected to which role.
+
+>**Example:**
+>|  id   | user_id | role_id|
+>|:-----:|:-------:|:------:|
+> |  1   |    1     |  1     |
+> |  2   |   1     |  2     |
+> |  3   |   2     |  1     |
+> This shows that user with id 1 has two roles with id 1 and 2 associated with it and user with id 2 has one role with id 1 associated with it.
 
 Every model contains a **`id`** field which is used as a primary key and a **`created_on`** and **`updated_on`** which keeps track of when the row was created and when was it last time updated.
 All the models also contains a **`__repr__()`** function which makes the objects more representable and alse help will debugging.
 
 >**Note**:
 > -  Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
->  - After adding some data to the model 
->  
->>  `user = User()
-> user.name = 'username'
-> user.id = 1
-> print(user)
-> <id 1 user username>`
+>  - Lets add some data
+ `>> user = User()`
+ `>> user.name = 'username'`
+ `>> user.id = 1`
+ > - After adding some data it will look like this.
+ `>> print(user)`
+ `>> <id 1 user username>`
 
 
 
-Lets see how we can make it more readable and concise by adding class BaseMixin and ReprMixin class.
+Lets see how we can make it more readable and concise by writting two more classes BaseMixin and ReprMixin.
 
     import re
     from sqlalchemy.ext.declarative import declared_attr
@@ -199,11 +204,6 @@ Our new code looks like this
         name = db.Column(db.String(80))
         email = db.Column(db.String(120), unique=True)
     
-        def __init__(self,name, email):
-            self.name = name
-            self.email = email
-    
-    
     class Role(db.Model, BaseMixin, ReprMixin):
         __tablename__ = 'role'
     
@@ -240,25 +240,23 @@ Start a python  console and create your first object.
 
 ### Adding More Fields
 
-Lets complete the our models, our goal is to create a complete user model to hold all the necessary data of user, a role model to have different roles in our web app and a model user role which acts as a junction between roles and user storing info about which user is connected to which role.
+Lets complete the our models. Our goal is to create a database to hold all the necessary data of a user, all the available roles and info of different roles associated with the users.
 
 #### **Updated User Model:**
-
+	from sqlalchemy.ext.hybrid import hybrid_property
+    
     class User(db.Model, BaseMixin, ReprMixin):
         __tablename__ = 'user'
-    
+        
         email = db.Column(db.String(120), unique=True)
-        password = db.Column(db.String(255), unique=True)
+        password = db.Column(db.String(255))
         first_name = db.Column(db.String(40), nullable=False)
 		last_name = db.Column(db.String(40))    
         profile_picture = db.Column(db.Text()))
+        bio = db.Column(db.Text()))
        	active = db.Column(db.Boolean())
 	    last_login_at = db.Column(db.DateTime())
 		date_of_birth = db.Column(db.Date)
-
-        def __init__(self,name, email):
-            self.name = name
-            self.email = email
 
 		@hybrid_property
 		def name(self):
@@ -266,19 +264,30 @@ Lets complete the our models, our goal is to create a complete user model to hol
 
 >**Note:**
 > - We have added two new columns **`first_name, last_name`** instead of name and introduced a hybrid property.
->> Now we can user name as a attribute, like **`user.name`**.
+> - Now we can use name as a attribute of user class instance, like **`user.name`**.
 
 
 
 
 ### Adding Relations
 
+**So what are relations?**
+Database tables are often related to one another, SqlAlchemy relations makes managing and working with these relationships easy. Defining relations powerful method chaining and querying capabilities.
+
+To know more about what sqlalchemy relationships are read [this](http://www.ergo.io/blog/sqlalchemy-relationships-from-beginner-to-advanced/) and [this](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html).
+
+**User Model**
+
     class User(db.Model, BaseMixin, ReprMixin):
     	roles = db.relationship('Role', secondary='user_role', back_populates='users')
+
+**Role Model**
 
     class Role(db.Model, BaseMixin, ReprMixin):
     
     	users = db.relationship('User', secondary='user_role', back_populates='roles')
+
+**UserRole Model**
     	
     class UserRole(db.Model, BaseMixin, ReprMixin):
     
@@ -288,5 +297,75 @@ Lets complete the our models, our goal is to create a complete user model to hol
 		role = db.relationship('Role', foreign_keys=[role_id])
 		user = db.relationship('User', foreign_keys=[user_id])
 
+We have added a relation **`roles`** in user model and **`users`** in role model, this now allows us to access, add and remove and update a user's roles from a user object and vice a versa.
+
+>**Example:**
+>>**Adding an user and a role**
+` >> user = User()`
+` >> user.first_name = 'saurabh'`
+` >> user.email = 'example@gmail.com'`
+` >> db.session..add(user)`
+` >> db.session.commit()`
+` >> role = Role()`
+` >> role.name = 'admin'`
+` >> db.session..add(role)`
+` >> db.session.commit()`
+
+>> 
+>>**Now we can do this**
+`>> user.roles.append(role)`
+`>> db.session.commit()`
+`>> print(user.roles)`
+`>> [<Role id=1 name=admin>]`
+`>> print(role.users)`
+` >> [<User id=1 name=saurabh>]`
+
+
+
+Our UserRole model also contains two relationships which are acting as junction between roles relation in user and users relationship in roles.
+
+>**Note:**
+ 1. The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
+ 2. The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
+ 3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
+ 4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
+	
+*Dont worry if relationships are not very clear right now*
+
+### Let's play with SqlAlchemy a little more.
+
+**Getting a single row from database**
+
+ - `>> user = User.query.get(1)`
+ This will give us the user with id 1. This query will return the first row that matches the condition.
+
+- `>> user = User.query.filter(User.id == 1).first()`
+Same result as above, same query.
+
+- `>> user = User.query.filter(User.id == 1).all()`
+This will try to search the database for all the users with id one and will scan all the rows in the table. This will give us an array of users with id 1.
+
+- `>> user = User.query.filter(User.first_name='saurabh').first()`
+Self explanatory
+
+- `>> from sqlalchemy import and_ `
+  `>> user = User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)).all()`
+    This will give user all the users which has role with id 1 associated with it. This query is running a join query between User and UserRole. To see what query sqlalchemy is running you can always do:
+
+    >>`>> print(User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)))`
+
+ - `>> user = User.query.join(UserRole, and_(UserRole.user_id==User.id)).join(Role, and_(Role.id == UserRole.role_id, Role.name=='admin')).all()`
+ Guess what this is doing?
+
+
+**Have Fun!!**
+
 
 [^rest api]: [RestApi]sss
+
+
+
+
+
+
+
