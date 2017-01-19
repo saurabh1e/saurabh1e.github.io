@@ -101,27 +101,27 @@ UserRole model is called an association table and it acts like a junction betwee
 
 >**Example:**
 
-|  id      | user_id     |  role_id      |
-|:--------:|:-----------:|:-------------:|
-|  1        |    1           |  1        |
-|  2        |    1           |  2        |
-|  3        |   2            |  1        |
+|  id      |   user_id   |  role_id  |
+|:--------:|:-----------:|:---------:|
+|  1       |    1        |  1        |
+|  2       |    1        |  2        |
+|  3       |   2         |  1        |
 
-> This shows that user with id 1 has two roles with id 1 and 2 associated with it and user with id 2 has one role with id 1 associated with it.
+>This shows that user with id 1 has two roles with id 1 and 2 associated with it and user with id 2 has one role with id 1 associated with it.
 
 Every model contains a **`id`** field which is used as a primary key and a **`created_on`** and **`updated_on`** which keeps track of when the row was created and when was it last time updated.
 All the models also contains a **`__repr__()`** function which makes the objects more representable and alse help will debugging.
 
 >**Note**:
+>Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
+>Lets add some data and see.
+	>>`>> user = User()`
+    >>`>> user.name = 'username'`
+    >>`>> user.id = 1`
 
-    Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
-    Lets add some data and see.
-        >> user = User()
-        >> user.name = 'username'
-        >> user.id = 1
-    After adding some data it will look like this.
-        >> print(user)
-        >> <id 1 user username>
+>After adding some data it will look like this.
+    >> `>> print(user)`
+    >> `>> <id 1 user username>`
 
 Lets see how we can make it more readable and concise by writting two more classes BaseMixin and ReprMixin.
 
