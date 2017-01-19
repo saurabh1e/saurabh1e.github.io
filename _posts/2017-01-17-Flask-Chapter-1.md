@@ -36,8 +36,8 @@ $ flask run
 
 
 > **Note:**
->- Install SQLAlchemy and Flask-SQLAlchemy.
->- You must have sqlite installed and running.
+> - Install SQLAlchemy and Flask-SQLAlchemy.
+> - You must have sqlite installed and running.
 
 
 We will be adding three models User, Role, UserRole.
