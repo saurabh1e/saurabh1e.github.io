@@ -115,7 +115,7 @@ All the models also contains a **`__repr__()`** function which makes the objects
 >**Note**:
 
 >Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
->Lets add some data and see.
+>>Lets add some data and see.
 >`>> user = User()`
 >`>> user.name = 'username'`
 >`>> user.id = 1`
