@@ -113,8 +113,10 @@ Every model contains a **`id`** field which is used as a primary key and a **`cr
 All the models also contains a **`__repr__()`** function which makes the objects more representable and alse help will debugging.
 
 >**Note**:
-> - Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
-> - Lets add some data and see.
+
+>- Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
+
+>- Lets add some data and see.
 
 ``` python 
 >> user = User()
