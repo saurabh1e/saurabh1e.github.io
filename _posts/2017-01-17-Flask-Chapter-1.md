@@ -330,23 +330,25 @@ We have added a relation **`roles`** in user model and **`users`** in role model
 >**Example:**
 
 >**Adding an user and a role**.
->`>> user = User()`
->` >> user.first_name = 'saurabh'`
->` >> user.email = 'example@gmail.com'`
->` >> db.session..add(user)`
->` >> db.session.commit()`
->` >> role = Role()`
->` >> role.name = 'admin'`
->` >> db.session..add(role)`
->` >> db.session.commit()`
+
+`>> user = User()`
+` >> user.first_name = 'saurabh'`
+` >> user.email = 'example@gmail.com'`
+` >> db.session..add(user)`
+` >> db.session.commit()`
+` >> role = Role()`
+` >> role.name = 'admin'`
+` >> db.session..add(role)`
+` >> db.session.commit()`
 
 >**Now we can do this**
->`>> user.roles.append(role)`
->`>> db.session.commit()`
->`>> print(user.roles)`
->`>> [<Role id=1 name=admin>]`
->`>> print(role.users)`
->` >> [<User id=1 name=saurabh>]`
+
+`>> user.roles.append(role)`
+`>> db.session.commit()`
+`>> print(user.roles)`
+`>> [<Role id=1 name=admin>]`
+`>> print(role.users)`
+`>> [<User id=1 name=saurabh>]`
 
 
 
