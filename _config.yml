@@ -51,7 +51,7 @@ encoding: "utf-8"
 
 # other settings
 highlighter: rouge
-markdown: kramdown
-kramdown:
+markdown: redcarpet
+redcarpet:
   input: GFM
   syntax_highlighter: rouge
