@@ -104,7 +104,7 @@ UserRole model is called an association table and it acts like a junction betwee
 <blockquote>
   <p><strong>Example:</strong></p>
   
-  <table>
+<table>
 <thead>
 <tr>
   <th align="center">id</th>
