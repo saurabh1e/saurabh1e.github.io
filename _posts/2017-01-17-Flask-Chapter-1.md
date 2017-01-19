@@ -113,17 +113,18 @@ Every model contains a **`id`** field which is used as a primary key and a **`cr
 All the models also contains a **`__repr__()`** function which makes the objects more representable and alse help will debugging.
 
 >**Note**:
-> Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
->  Lets add some data and see.
-``` python
-    >> user = User()
-    >> user.name = 'username'
-    >> user.id = 1
+Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
+Lets add some data and see.
 ```
-> After adding some data it will look like this.
+>> user = User()
+>> user.name = 'username'
+>> user.id = 1
+```
+
+>After adding some data it will look like this.
 ``` python   
-    >> print(user)
-    >> <id 1 user username>
+>> print(user)
+>> <id 1 user username>
 ```
 
 Lets see how we can make it more readable and concise by writting two more classes BaseMixin and ReprMixin.
