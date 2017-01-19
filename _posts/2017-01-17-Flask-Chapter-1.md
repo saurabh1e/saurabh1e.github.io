@@ -114,7 +114,7 @@ All the models also contains a **`__repr__()`** function which makes the objects
 >**Note**:
 
 >Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
->>Lets add some data and see.
+>Lets add some data and see.
 >`>> user = User()`
 >`>> user.name = 'username'`
 >`>> user.id = 1`
@@ -322,36 +322,23 @@ We have added a relation **`roles`** in user model and **`users`** in role model
 **Adding an user and a role**.
 
 `>> user = User()`
-
 ` >> user.first_name = 'saurabh'`
-
 ` >> user.email = 'example@gmail.com'`
-
 ` >> db.session..add(user)`
-
 ` >> db.session.commit()`
-
 ` >> role = Role()`
-
 ` >> role.name = 'admin'`
-
 ` >> db.session..add(role)`
-
 ` >> db.session.commit()`
 
 
 **Now we can do this**
 
 `>> user.roles.append(role)`
-
 `>> db.session.commit()`
-
 `>> print(user.roles)`
-
 `>> [<Role id=1 name=admin>]`
-
 `>> print(role.users)`
-
 ` >> [<User id=1 name=saurabh>]`
 
 
