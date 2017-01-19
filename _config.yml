@@ -57,3 +57,5 @@ encoding: "utf-8"
 #  syntax_highlighter: rouge
 
  # This will require each of these gems automatically.
+markdown: kramdown
+highlighter: rouge
