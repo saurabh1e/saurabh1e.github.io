@@ -1,458 +1,410 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hello!</title>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-</head>
-<body><div class="container"><h1 id="writing-restful-apis-in-flask">Writing Restful Api’s in Flask</h1>
-
-<p>In this series of 10 Chapters we will learn basics of writing a <strong>restful api</strong><a href="#fn:rest-api" id="fnref:rest-api" title="See footnote" class="footnote">1</a> service using flask and create a seed app which can be used as building block for large web applications.  This series target audience with basic knowledge of using Flask or any other MVC framework.</p>
-
-<hr>
+Writing Restful Api's in Flask
+===================
 
 
+In this series of 10 Chapters we will learn basics of writing a **restful api**[^rest api] service using flask and create a seed app which can be used as building block for large web applications.  This series target audience with basic knowledge of using Flask or any other MVC framework.
 
-<h2 id="chapter-1">Chapter 1</h2>
-
-
-
-<h3 id="starting-flask-server">Starting Flask Server</h3>
+----------
 
 
+Chapter 1
+-------------
 
-<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
+### Starting Flask Server
+
+``` python
+from flask import Flask
 app = Flask(__name__)
 
-<span class="hljs-decorator">@app.route('/')</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hello_world</span><span class="hljs-params">()</span>:</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-string">'Hello, World!'</span></code></pre>
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+```
 
-<p>Save a file with the above code and start the server by running following commands.</p>
+Save a file with the above code and start the server by running following commands.
 
+``` bash
+$ export FLASK_APP=<filename>
+$ flask run
+```
 
-
-<pre class="prettyprint"><code class="language-bash hljs ">$ <span class="hljs-keyword">export</span> FLASK_APP=&lt;filename&gt;
-$ flask run</code></pre>
-
-
-
-<h3 id="adding-database-models">Adding Database Model’s</h3>
-
-<blockquote>
-  <p><strong>Note:</strong></p>
-  
-  <ul>
-  <li>Install SQLAlchemy and Flask-SQLAlchemy.</li>
-  <li>You must have sqlite installed and running.</li>
-  </ul>
-</blockquote>
-
-<p>We will be adding three models User, Role, UserRole. </p>
+###  Adding Database Model's
 
 
+> **Note:**
 
-<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">import</span> os
-<span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
-<span class="hljs-keyword">from</span> flask_sqlalchemy <span class="hljs-keyword">import</span> SQLAlchemy
+> - Install SQLAlchemy and Flask-SQLAlchemy.
+> - You must have sqlite installed and running.
+	
+We will be adding three models User, Role, UserRole. 
+
+``` python 
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
-app.config[<span class="hljs-string">'SQLALCHEMY_DATABASE_URI'</span>] = <span class="hljs-string">'sqlite:///{}'</span>.format(os.path.join(basedir, <span class="hljs-string">'test.db'</span>))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(os.path.join(basedir, 'test.db'))
 db = SQLAlchemy(app)
 
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span><span class="hljs-params">(db.Model)</span>:</span>
-    __tablename__ = <span class="hljs-string">'user'</span>
-
-    id = db.Column(db.Integer, primary_key=<span class="hljs-keyword">True</span>)
-    name = db.Column(db.String(<span class="hljs-number">80</span>))
-    email = db.Column(db.String(<span class="hljs-number">120</span>), unique=<span class="hljs-keyword">True</span>, nullable=<span class="hljs-keyword">False</span>)
+class User(db.Model):
+	__tablename__ = 'user'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    email = db.Column(db.String(120), unique=True, nullable=False)
     created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;id {} user {}&gt;'</span>.format(self.id, self.name)
+    def __repr__(self):
+        return '<id {} user {}>'.format(self.id, self.name)
 
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Role</span><span class="hljs-params">(db.Model)</span>:</span>
-    __tablename__ = <span class="hljs-string">'role'</span>
+class Role(db.Model):
+	__tablename__ = 'role'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.Text, unique=True)
+	created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
+    updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
+	
+	def __repr__(self):
+        return '<id {} role {}>'.format(self.id, self.name)
 
-    id = db.Column(db.Integer, primary_key=<span class="hljs-keyword">True</span>)
-    name = db.Column(db.String(<span class="hljs-number">80</span>), unique=<span class="hljs-keyword">True</span>)
-    description = db.Column(db.Text, unique=<span class="hljs-keyword">True</span>)
-    created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
+
+class UserRole(db.Model):
+	__tablename__ = 'user_role'
+	
+	id = db.Column(db.Integer, primary_key=True)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+	created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;id {} role {}&gt;'</span>.format(self.id, self.name)
+	def __repr__(self):
+        return '<user_id {} role_id {}>'.format(self.user_id, self.role_id)
 
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserRole</span><span class="hljs-params">(db.Model)</span>:</span>
-    __tablename__ = <span class="hljs-string">'user_role'</span>
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+```
+The user model and role models are self explanatory. *UserRole* model might look a little confusing to some,
+UserRole model is called an association table and it acts like a junction between **User** and **Role**. It stores the data of which user is connected to which role.
 
-    id = db.Column(db.Integer, primary_key=<span class="hljs-keyword">True</span>)
-    user_id = db.Column(db.Integer, db.ForeignKey(<span class="hljs-string">'user.id'</span>))
-    role_id = db.Column(db.Integer, db.ForeignKey(<span class="hljs-string">'role.id'</span>))
-    created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
-    updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
+>**Example:**
+>|  id      | user_id     |    role_id    |
+>|:--------:|:-----------:|:-------------:|
+>|  1        |    1           |  1               |
+>|  2        |    1           |  2               |
+>|  3        |   2            |  1               |
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;user_id {} role_id {}&gt;'</span>.format(self.user_id, self.role_id)
+> This shows that user with id 1 has two roles with id 1 and 2 associated with it and user with id 2 has one role with id 1 associated with it.
+
+Every model contains a **`id`** field which is used as a primary key and a **`created_on`** and **`updated_on`** which keeps track of when the row was created and when was it last time updated.
+All the models also contains a **`__repr__()`** function which makes the objects more representable and alse help will debugging.
+
+>**Note**:
+> -  Printing an object of user model in console (`print(User())`) will print something like this `<id None name None>`
+>  - Lets add some data
+ `>> user = User()`
+ `>> user.name = 'username'`
+ `>> user.id = 1`
+ > - After adding some data it will look like this.
+ `>> print(user)`
+ `>> <id 1 user username>`
 
 
-<span class="hljs-decorator">@app.route('/')</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hello_world</span><span class="hljs-params">()</span>:</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-string">'Hello, World!'</span></code></pre>
 
-<p>The user model and role models are self explanatory. <em>UserRole</em> model might look a little confusing to some, <br>
-UserRole model is called an association table and it acts like a junction between <strong>User</strong> and <strong>Role</strong>. It stores the data of which user is connected to which role.</p>
-
-<blockquote>
-  <p><strong>Example:</strong></p>
-  
-  <table>
-<thead>
-<tr>
-  <th align="center">id</th>
-  <th align="center">user_id</th>
-  <th align="center">role_id</th>
-</tr>
-</thead>
-<tbody><tr>
-  <td align="center">1</td>
-  <td align="center">1</td>
-  <td align="center">1</td>
-</tr>
-<tr>
-  <td align="center">2</td>
-  <td align="center">1</td>
-  <td align="center">2</td>
-</tr>
-<tr>
-  <td align="center">3</td>
-  <td align="center">2</td>
-  <td align="center">1</td>
-</tr>
-</tbody></table>
+Lets see how we can make it more readable and concise by writting two more classes BaseMixin and ReprMixin.
 
   
-  <p>This shows that user with id 1 has two roles with id 1 and 2 associated with it and user with id 2 has one role with id 1 associated with it.</p>
-</blockquote>
+```python
+import re
+from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.schema import Index
+     
+def to_underscore(name):
 
-<p>Every model contains a <strong><code>id</code></strong> field which is used as a primary key and a <strong><code>created_on</code></strong> and <strong><code>updated_on</code></strong> which keeps track of when the row was created and when was it last time updated. <br>
-All the models also contains a <strong><code>__repr__()</code></strong> function which makes the objects more representable and alse help will debugging.</p>
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
-<blockquote>
-  <p><strong>Note</strong>: <br>
-  -  Printing an object of user model in console (<code>print(User())</code>) will print something like this <code>&lt;id None name None&gt;</code> <br>
-   - Lets add some data <br>
-   <code>&gt;&gt; user = User()</code> <br>
-   <code>&gt;&gt; user.name = 'username'</code> <br>
-   <code>&gt;&gt; user.id = 1</code> <br>
-  - After adding some data it will look like this. <br>
-   <code>&gt;&gt; print(user)</code> <br>
-   <code>&gt;&gt; &lt;id 1 user username&gt;</code></p>
-</blockquote>
+ 
+ class BaseMixin(object):
+ 
+     @declared_attr
+     def __tablename__(self):
+         return to_underscore(self.__name__)
 
-<p>Lets see how we can make it more readable and concise by writting two more classes BaseMixin and ReprMixin.</p>
-
-
-
-<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">import</span> re
-<span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declared_attr
-<span class="hljs-keyword">from</span> sqlalchemy.schema <span class="hljs-keyword">import</span> Index
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">to_underscore</span><span class="hljs-params">(name)</span>:</span>
-
-    s1 = re.sub(<span class="hljs-string">'(.)([A-Z][a-z]+)'</span>, <span class="hljs-string">r'\1_\2'</span>, name)
-    <span class="hljs-keyword">return</span> re.sub(<span class="hljs-string">'([a-z0-9])([A-Z])'</span>, <span class="hljs-string">r'\1_\2'</span>, s1).lower()
-
-
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseMixin</span><span class="hljs-params">(object)</span>:</span>
-
-     <span class="hljs-decorator">@declared_attr</span>
-     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__tablename__</span><span class="hljs-params">(self)</span>:</span>
-         <span class="hljs-keyword">return</span> to_underscore(self.__name__)
-
-     id = db.Column(db.Integer, primary_key=<span class="hljs-keyword">True</span>)
+     id = db.Column(db.Integer, primary_key=True)
      created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
      updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
+ 
+ 
+class ReprMixin(object):
 
+    __repr_fields__ = ['id', 'name']
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReprMixin</span><span class="hljs-params">(object)</span>:</span>
-
-    __repr_fields__ = [<span class="hljs-string">'id'</span>, <span class="hljs-string">'name'</span>]
-
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
-        fields = {f: getattr(self, f, <span class="hljs-string">'&lt;BLANK&gt;'</span>) <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> self.__repr_fields__}
-        pattern = [<span class="hljs-string">'{0}={{{0}}}'</span>.format(f) <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> self.__repr_fields__]
-        pattern = <span class="hljs-string">' '</span>.join(pattern)
+    def __repr__(self):
+        fields = {f: getattr(self, f, '<BLANK>') for f in self.__repr_fields__}
+        pattern = ['{0}={{{0}}}'.format(f) for f in self.__repr_fields__]
+        pattern = ' '.join(pattern)
         pattern = pattern.format(**fields)
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;{} {}&gt;'</span>.format(self.__class__.__name__, pattern)</code></pre>
+        return '<{} {}>'.format(self.__class__.__name__, pattern)
+```
 
-<p>By adding BaseMixin and ReprMixin we can put all the repeated code under one class and inherit those classes where ever required. <br>
-Our BaseMixin class contains three attributes <strong><code>id, created_on, updated_on</code></strong> which were common among all the models. It also contains a declarative attribute which automatically generates the table name using the class name, making code more readable, concise and less error prone.</p>
+By adding BaseMixin and ReprMixin we can put all the repeated code under one class and inherit those classes where ever required.
+Our BaseMixin class contains three attributes **`id, created_on, updated_on`** which were common among all the models. It also contains a declarative attribute which automatically generates the table name using the class name, making code more readable, concise and less error prone.
 
-<p>Class ReprMixin helps us by adding a generic function which uses <strong><code>id</code></strong> and <strong><code>name</code></strong> by default attributes of class to represent the objects. The <strong><code>__repr__fields</code></strong> attribute can easily be overridden in sub classes as required.</p>
+Class ReprMixin helps us by adding a generic function which uses **`id`** and **`name`** by default attributes of class to represent the objects. The **`__repr__fields `** attribute can easily be overridden in sub classes as required.
 
-<p>Our new code looks like this</p>
+Our new code looks like this
 
-
-
-<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">import</span> os
-<span class="hljs-keyword">import</span> re
-<span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask
-<span class="hljs-keyword">from</span> flask_sqlalchemy <span class="hljs-keyword">import</span> SQLAlchemy
-<span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declared_attr
+``` python
+import os
+import re
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.declarative import declared_attr
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
-app.config[<span class="hljs-string">'SQLALCHEMY_DATABASE_URI'</span>] = <span class="hljs-string">'sqlite:///{}'</span>.format(os.path.join(basedir, <span class="hljs-string">'test.db'</span>))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(os.path.join(basedir, 'test.db'))
 db = SQLAlchemy(app)
 db.create_all()
 
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">to_underscore</span><span class="hljs-params">(name)</span>:</span>
+def to_underscore(name):
 
-    s1 = re.sub(<span class="hljs-string">'(.)([A-Z][a-z]+)'</span>, <span class="hljs-string">r'\1_\2'</span>, name)
-    <span class="hljs-keyword">return</span> re.sub(<span class="hljs-string">'([a-z0-9])([A-Z])'</span>, <span class="hljs-string">r'\1_\2'</span>, s1).lower()
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseMixin</span><span class="hljs-params">(object)</span>:</span>
+class BaseMixin(object):
 
-    <span class="hljs-decorator">@declared_attr</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__tablename__</span><span class="hljs-params">(self)</span>:</span>
-        <span class="hljs-keyword">return</span> to_underscore(self.__name__)
+    @declared_attr
+    def __tablename__(self):
+        return to_underscore(self.__name__)
 
-    id = db.Column(db.Integer, primary_key=<span class="hljs-keyword">True</span>)
+    id = db.Column(db.Integer, primary_key=True)
     created_on = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     updated_on = db.Column(db.TIMESTAMP, onupdate=db.func.current_timestamp())
 
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ReprMixin</span><span class="hljs-params">(object)</span>:</span>
+class ReprMixin(object):
 
-    __repr_fields__ = [<span class="hljs-string">'id'</span>, <span class="hljs-string">'name'</span>]
+    __repr_fields__ = ['id', 'name']
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__repr__</span><span class="hljs-params">(self)</span>:</span>
-        fields = {f: getattr(self, f, <span class="hljs-string">'&lt;BLANK&gt;'</span>) <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> self.__repr_fields__}
-        pattern = [<span class="hljs-string">'{0}={{{0}}}'</span>.format(f) <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> self.__repr_fields__]
-        pattern = <span class="hljs-string">' '</span>.join(pattern)
+    def __repr__(self):
+        fields = {f: getattr(self, f, '<BLANK>') for f in self.__repr_fields__}
+        pattern = ['{0}={{{0}}}'.format(f) for f in self.__repr_fields__]
+        pattern = ' '.join(pattern)
         pattern = pattern.format(**fields)
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;{} {}&gt;'</span>.format(self.__class__.__name__, pattern)
+        return '<{} {}>'.format(self.__class__.__name__, pattern)
 
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span><span class="hljs-params">(db.Model, BaseMixin, ReprMixin)</span>:</span>
-    __tablename__ = <span class="hljs-string">'user'</span>
+class User(db.Model, BaseMixin, ReprMixin):
+    __tablename__ = 'user'
 
-    name = db.Column(db.String(<span class="hljs-number">80</span>))
-    email = db.Column(db.String(<span class="hljs-number">120</span>), unique=<span class="hljs-keyword">True</span>)
+    name = db.Column(db.String(80))
+    email = db.Column(db.String(120), unique=True)
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Role</span><span class="hljs-params">(db.Model, BaseMixin, ReprMixin)</span>:</span>
-    __tablename__ = <span class="hljs-string">'role'</span>
+class Role(db.Model, BaseMixin, ReprMixin):
+    __tablename__ = 'role'
 
-    name = db.Column(db.String(<span class="hljs-number">80</span>), unique=<span class="hljs-keyword">True</span>)
-    description = db.Column(db.Text, unique=<span class="hljs-keyword">True</span>)
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.Text, unique=True)
 
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserRole</span><span class="hljs-params">(db.Model, BaseMixin, ReprMixin)</span>:</span>
-    __tablename__ = <span class="hljs-string">'user_role'</span>
-    __repr_fields__ = [<span class="hljs-string">'user_id'</span>, <span class="hljs-string">'role_id'</span>]
+class UserRole(db.Model, BaseMixin, ReprMixin):
+    __tablename__ = 'user_role'
+    __repr_fields__ = ['user_id', 'role_id']
 
-    user_id = db.Column(db.Integer, db.ForeignKey(<span class="hljs-string">'user.id'</span>))
-    role_id = db.Column(db.Integer, db.ForeignKey(<span class="hljs-string">'role.id'</span>))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
 
 
-<span class="hljs-decorator">@app.route('/')</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hello_world</span><span class="hljs-params">()</span>:</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-string">'Hello, World!'</span>
-</code></pre>
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
-<p>Start a python  console and create your first object.</p>
+```
 
+Start a python  console and create your first object.
 
+``` bash
+$ python
+```
+``` python 
+>> from app import *
+>> user = User('saurabh', 'saurabh.1e1@gmail.com')
+>> db.session.add(user)
+>> db.session.commit()
+>> user
+>> <User id=1 name=saurabh>
+    
+```
 
-<pre class="prettyprint"><code class="language-bash hljs ">$ python</code></pre>
+### Adding More Fields
 
+Lets complete the our models. Our goal is to create a database to hold all the necessary data of a user, all the available roles and info of different roles associated with the users.
 
+#### **Updated User Model:**
 
-<pre class="prettyprint"><code class="language-python hljs ">&gt;&gt; <span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> *
-&gt;&gt; user = User(<span class="hljs-string">'saurabh'</span>, <span class="hljs-string">'saurabh.1e1@gmail.com'</span>)
-&gt;&gt; db.session.add(user)
-&gt;&gt; db.session.commit()
-&gt;&gt; user
-&gt;&gt; &lt;User id=<span class="hljs-number">1</span> name=saurabh&gt;
-</code></pre>
+```  python
 
+from sqlalchemy.ext.hybrid import hybrid_property
 
+class User(db.Model, BaseMixin, ReprMixin):
+    __tablename__ = 'user'
+    
+	email = db.Column(db.String(120), unique=True)
+	password = db.Column(db.String(255))
+	first_name = db.Column(db.String(40), nullable=False)
+	last_name = db.Column(db.String(40))    
+	profile_picture = db.Column(db.Text()))
+	bio = db.Column(db.Text()))
+	active = db.Column(db.Boolean())
+	last_login_at = db.Column(db.DateTime())
+	date_of_birth = db.Column(db.Date)
 
-<h3 id="adding-more-fields">Adding More Fields</h3>
+	@hybrid_property
+	def name(self):
+		return '{}'.format(self.first_name) + (' {}'.format(self.last_name) if self.last_name else '')
+	
+```
 
-<p>Lets complete the our models. Our goal is to create a database to hold all the necessary data of a user, all the available roles and info of different roles associated with the users.</p>
+>**Note:**
+> - We have added two new columns **`first_name, last_name`** instead of name and introduced a hybrid property.
+> - Now we can use name as a attribute of user class instance, like **`user.name`**.
 
 
 
-<h4 id="updated-user-model"><strong>Updated User Model:</strong></h4>
 
+### Adding Relations
 
+**So what are relations?**
+Database tables are often related to one another, SqlAlchemy relations makes managing and working with these relationships easy. Defining relations powerful method chaining and querying capabilities.
 
-<pre class="prettyprint"><code class="language-python hljs ">
-<span class="hljs-keyword">from</span> sqlalchemy.ext.hybrid <span class="hljs-keyword">import</span> hybrid_property
+To know more about what sqlalchemy relationships are read [this](http://www.ergo.io/blog/sqlalchemy-relationships-from-beginner-to-advanced/) and [this](http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html).
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span><span class="hljs-params">(db.Model, BaseMixin, ReprMixin)</span>:</span>
-    __tablename__ = <span class="hljs-string">'user'</span>
+**User Model**
+``` python
+class User(db.Model, BaseMixin, ReprMixin):
+	roles = db.relationship('Role', secondary='user_role', back_populates='users')
+```
+**Role Model**
 
-    email = db.Column(db.String(<span class="hljs-number">120</span>), unique=<span class="hljs-keyword">True</span>)
-    password = db.Column(db.String(<span class="hljs-number">255</span>))
-    first_name = db.Column(db.String(<span class="hljs-number">40</span>), nullable=<span class="hljs-keyword">False</span>)
-    last_name = db.Column(db.String(<span class="hljs-number">40</span>))    
-    profile_picture = db.Column(db.Text()))
-    bio = db.Column(db.Text()))
-    active = db.Column(db.Boolean())
-    last_login_at = db.Column(db.DateTime())
-    date_of_birth = db.Column(db.Date)
+``` python
+  class Role(db.Model, BaseMixin, ReprMixin):
+	 users = db.relationship('User', secondary='user_role', back_populates='roles')
+```
+**UserRole Model**
+    	
+``` python
+class UserRole(db.Model, BaseMixin, ReprMixin):
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+	role = db.relationship('Role', foreign_keys=[role_id])
+	user = db.relationship('User', foreign_keys=[user_id])
+```
 
-    <span class="hljs-decorator">@hybrid_property</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">name</span><span class="hljs-params">(self)</span>:</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'{}'</span>.format(self.first_name) + (<span class="hljs-string">' {}'</span>.format(self.last_name) <span class="hljs-keyword">if</span> self.last_name <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>)
-</code></pre>
+We have added a relation **`roles`** in user model and **`users`** in role model, this now allows us to access, add and remove and update a user's roles from a user object and vice a versa.
 
-<blockquote>
-  <p><strong>Note:</strong> <br>
-  - We have added two new columns <strong><code>first_name, last_name</code></strong> instead of name and introduced a hybrid property. <br>
-  - Now we can use name as a attribute of user class instance, like <strong><code>user.name</code></strong>.</p>
-</blockquote>
+>**Example:**
 
+**Adding an user and a role**.
 
+`>> user = User()`
 
-<h3 id="adding-relations">Adding Relations</h3>
+` >> user.first_name = 'saurabh'`
 
-<p><strong>So what are relations?</strong> <br>
-Database tables are often related to one another, SqlAlchemy relations makes managing and working with these relationships easy. Defining relations powerful method chaining and querying capabilities.</p>
+` >> user.email = 'example@gmail.com'`
 
-<p>To know more about what sqlalchemy relationships are read <a href="http://www.ergo.io/blog/sqlalchemy-relationships-from-beginner-to-advanced/">this</a> and <a href="http://docs.sqlalchemy.org/en/latest/orm/basic_relationships.html">this</a>.</p>
+` >> db.session..add(user)`
 
-<p><strong>User Model</strong></p>
+` >> db.session.commit()`
 
+` >> role = Role()`
 
+` >> role.name = 'admin'`
 
-<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span><span class="hljs-params">(db.Model, BaseMixin, ReprMixin)</span>:</span>
-    roles = db.relationship(<span class="hljs-string">'Role'</span>, secondary=<span class="hljs-string">'user_role'</span>, back_populates=<span class="hljs-string">'users'</span>)</code></pre>
+` >> db.session..add(role)`
 
-<p><strong>Role Model</strong></p>
+` >> db.session.commit()`
 
 
+**Now we can do this**
 
-<pre class="prettyprint"><code class="language-python hljs ">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Role</span><span class="hljs-params">(db.Model, BaseMixin, ReprMixin)</span>:</span>
-     users = db.relationship(<span class="hljs-string">'User'</span>, secondary=<span class="hljs-string">'user_role'</span>, back_populates=<span class="hljs-string">'roles'</span>)</code></pre>
+`>> user.roles.append(role)`
 
-<p><strong>UserRole Model</strong></p>
+`>> db.session.commit()`
 
+`>> print(user.roles)`
 
+`>> [<Role id=1 name=admin>]`
 
-<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserRole</span><span class="hljs-params">(db.Model, BaseMixin, ReprMixin)</span>:</span>
-    user_id = db.Column(db.Integer, db.ForeignKey(<span class="hljs-string">'user.id'</span>))
-    role_id = db.Column(db.Integer, db.ForeignKey(<span class="hljs-string">'role.id'</span>))
-    role = db.relationship(<span class="hljs-string">'Role'</span>, foreign_keys=[role_id])
-    user = db.relationship(<span class="hljs-string">'User'</span>, foreign_keys=[user_id])</code></pre>
+`>> print(role.users)`
 
-<p>We have added a relation <strong><code>roles</code></strong> in user model and <strong><code>users</code></strong> in role model, this now allows us to access, add and remove and update a user’s roles from a user object and vice a versa.</p>
+` >> [<User id=1 name=saurabh>]`
 
-<blockquote>
-  <p><strong>Example:</strong></p>
-</blockquote>
 
-<p><strong>Adding an user and a role</strong>.</p>
 
-<p><code>&gt;&gt; user = User()</code></p>
+Our UserRole model also contains two relationships which are acting as junction between roles relation in user and users relationship in roles.
 
-<p><code>&gt;&gt; user.first_name = 'saurabh'</code></p>
+>**Note:**
 
-<p><code>&gt;&gt; user.email = 'example@gmail.com'</code></p>
+1. The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
 
-<p><code>&gt;&gt; db.session..add(user)</code></p>
+2. The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
 
-<p><code>&gt;&gt; db.session.commit()</code></p>
+3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
 
-<p><code>&gt;&gt; role = Role()</code></p>
+4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
+	
+*Dont worry if relationships are not very clear right now*
 
-<p><code>&gt;&gt; role.name = 'admin'</code></p>
+### Let's play with SqlAlchemy a little more.
 
-<p><code>&gt;&gt; db.session..add(role)</code></p>
+**Getting a single row from database**
 
-<p><code>&gt;&gt; db.session.commit()</code></p>
+`>> user = User.query.get(1)`
 
-<p><strong>Now we can do this</strong></p>
+This will give us the user with id 1. This query will return the first row that matches the condition.
 
-<p><code>&gt;&gt; user.roles.append(role)</code></p>
+`>> user = User.query.filter(User.id == 1).first()`
 
-<p><code>&gt;&gt; db.session.commit()</code></p>
+Same result as above, same query.
 
-<p><code>&gt;&gt; print(user.roles)</code></p>
+ `>> user = User.query.filter(User.id == 1).all()`
 
-<p><code>&gt;&gt; [&lt;Role id=1 name=admin&gt;]</code></p>
+This will try to search the database for all the users with id one and will scan all the rows in the table. This will give us an array of users with id 1.
 
-<p><code>&gt;&gt; print(role.users)</code></p>
+`>> user = User.query.filter(User.first_name='saurabh').first()`
 
-<p><code>&gt;&gt; [&lt;User id=1 name=saurabh&gt;]</code></p>
+Self explanatory
 
-<p>Our UserRole model also contains two relationships which are acting as junction between roles relation in user and users relationship in roles.</p>
+```python
+>> from sqlalchemy import and_ 
+>> user = User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)).all()
+```
 
-<blockquote>
-  <p><strong>Note:</strong></p>
-</blockquote>
+  This will give user all the users which has role with id 1 associated with it. This query is running a join query between User and UserRole. To see what query sqlalchemy is running you can always do:
+``` python
+>> print(User.query.join(UserRole, and_(UserRole.role_id==1, UserRole.user_id==User.id)))
+```
 
-<ol>
-<li><p>The <strong>user</strong> relationship in <strong>UserRole</strong> is a one to one relationship between <strong>User</strong> and <strong>UserRole</strong>.</p></li>
-<li><p>The <strong>role</strong> relationship in <strong>UserRole</strong> is a one to one relationship between <strong>Role</strong> and <strong>UserRole</strong>.</p></li>
-<li><p>The <strong>roles</strong> relationship in <strong>User</strong> is one to many relationship between <strong>User</strong> and its <strong>roles</strong>.</p></li>
-<li><p>The <strong>users</strong> relationship in <strong>Role</strong> is one to many relationship between <strong>Role</strong> and its <strong>users</strong>.</p></li>
-</ol>
+``` python
+user = User.query.join(UserRole, and_(UserRole.user_id==User.id)).join(Role, and_(Role.id == UserRole.role_id, Role.name=='admin')).all()
+```
 
-<p><em>Dont worry if relationships are not very clear right now</em></p>
+Guess what this is doing?
 
 
+**Have Fun!!**
 
-<h3 id="lets-play-with-sqlalchemy-a-little-more">Let’s play with SqlAlchemy a little more.</h3>
 
-<p><strong>Getting a single row from database</strong></p>
-
-<p><code>&gt;&gt; user = User.query.get(1)</code></p>
-
-<p>This will give us the user with id 1. This query will return the first row that matches the condition.</p>
-
-<p><code>&gt;&gt; user = User.query.filter(User.id == 1).first()</code></p>
-
-<p>Same result as above, same query.</p>
-
-<p><code>&gt;&gt; user = User.query.filter(User.id == 1).all()</code></p>
-
-<p>This will try to search the database for all the users with id one and will scan all the rows in the table. This will give us an array of users with id 1.</p>
-
-<p><code>&gt;&gt; user = User.query.filter(User.first_name='saurabh').first()</code></p>
-
-<p>Self explanatory</p>
-
-
-
-<pre class="prettyprint"><code class="language-python hljs ">&gt;&gt; <span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> and_ 
-&gt;&gt; user = User.query.join(UserRole, and_(UserRole.role_id==<span class="hljs-number">1</span>, UserRole.user_id==User.id)).all()</code></pre>
-
-<p>This will give user all the users which has role with id 1 associated with it. This query is running a join query between User and UserRole. To see what query sqlalchemy is running you can always do:</p>
-
-
-
-<pre class="prettyprint"><code class="language-python hljs ">&gt;&gt; print(User.query.join(UserRole, and_(UserRole.role_id==<span class="hljs-number">1</span>, UserRole.user_id==User.id)))</code></pre>
-
-
-
-<pre class="prettyprint"><code class="language-python hljs ">user = User.query.join(UserRole, and_(UserRole.user_id==User.id)).join(Role, and_(Role.id == UserRole.role_id, Role.name==<span class="hljs-string">'admin'</span>)).all()</code></pre>
-
-<p>Guess what this is doing?</p>
-
-<p><strong>Have Fun!!</strong></p>
-
-<div class="footnotes"><hr><ol><li id="fn:rest-api">[RestApi] <a href="#fnref:rest-api" title="Return to article" class="reversefootnote">↩</a></li></ol></div></div></body>
-</html>
+[^rest api]: [RestApi]
