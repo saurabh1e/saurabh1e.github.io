@@ -36,9 +36,7 @@ $ flask run
 
 
 > **Note:**
-
 > - Install SQLAlchemy and Flask-SQLAlchemy.
-
 > - You must have sqlite installed and running.
 
 
