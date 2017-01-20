@@ -1,6 +1,14 @@
 ---
-title: Flask Chapter 1
+layout: post
+title:  "Chapter 1: Flask: The Beginning"
+date:   2017-01-17
+desc: "Python"
+keywords: "Python, Flask, SqlAlchemy"
+categories: [Python]
+tags: [Python, Flask, SqlAlchemy]
+icon: icon-python
 ---
+
 
 Writing Restful Api's in Flask
 ===================
