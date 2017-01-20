@@ -44,7 +44,9 @@ $ flask run
 
 
 > **Note:**
+
 > - Install SQLAlchemy and Flask-SQLAlchemy.
+
 > - You must have sqlite installed and running.
 
 
@@ -369,10 +371,13 @@ Our UserRole model also contains two relationships which are acting as junction 
 
 >**Note:**
 
->1. The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
->2. The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
->3. The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
->4. The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
+> The **user** relationship in **UserRole** is a one to one relationship between **User** and **UserRole**.
+
+> The **role** relationship in **UserRole** is a one to one relationship between **Role** and **UserRole**.
+
+> The **roles** relationship in **User** is one to many relationship between **User** and its **roles**.
+
+> The **users** relationship in **Role** is one to many relationship between **Role** and its **users**.
 
 *Dont worry if relationships are not very clear right now*
 
