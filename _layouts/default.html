@@ -4,6 +4,9 @@
 	{% if page.title != 'index' %}
 	    {% include head.html %}
 		{% seo %}
+    {% if site.google_verify %}
+        <meta name="google-site-verification" content="{{ site.google_verify }}">
+    {% endif %}
 	{% else %}
 		{% include index_head.html %}
 	{% endif %}
