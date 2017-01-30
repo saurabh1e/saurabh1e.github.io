@@ -6,6 +6,9 @@
   <meta content="{{ site.description }}" name="description">
   <meta name="keywords" content="{{ site.keywords }}">
   <meta name="author" content="{{ site.author.name }}">
+  {% if site.google_verify %}
+  <meta name="google-site-verification" content="{{ site.google_verify }}">
+  {% endif %}
   <title>{{ site.title }}</title>
   <!-- favicon -->
   <link rel="shortcut icon" href="{{ "static/img/favicon.ico" | prepend: site.baseurl }}">
