@@ -2,7 +2,8 @@
 layout: post
 title:  "Chapter 1: Flask: The Beginning"
 date:   2017-01-17
-desc: "Python"
+description: "Writing web apps with flask"
+author: "Saurabh Gupta"
 keywords: "Python, Flask, SqlAlchemy"
 categories: [Python]
 tags: [Python, Flask, SqlAlchemy]
