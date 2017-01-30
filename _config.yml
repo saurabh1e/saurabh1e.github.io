@@ -59,3 +59,9 @@ encoding: "utf-8"
  # This will require each of these gems automatically.
 markdown: kramdown
 highlighter: rouge
+
+gems:
+  - jekyll-seo-tag
+
+webmaster_verifications:
+  google: "NzZ1tqaKaoVbikH5llS5eAww22BsnQ1MH00wzN7ve2I"
