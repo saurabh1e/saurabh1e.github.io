@@ -1,43 +1,50 @@
 # projects section data
+- name: 'Open POS Api'
+  i18n: 'S_G'
+  gh_user: 'saurabh1e'
+  repo: 'open-pos-api'
+  img: 'static/img/landing/open-pos.svg'
+  desc: "Open Source Point of Sale system in development, can be used in Pharmacy, Grocery Store, Cafe etc"
+
+- name: 'Open POS Frontend'
+  i18n: 'S_G'
+  gh_user: 'saurabh1e'
+  repo: 'open-pos-frontend'
+  img: 'static/img/landing/open-pos.svg'
+  desc: "Open Source Point of Sale system in development, can be used in Pharmacy, Grocery Store, Cafe etc"
+
 - name: 'NomNom'
-  i18n: 'saplatform'
-#  gh_user: 'JiaKunUp'
-#  repo: 'saplatform'
+  i18n: 'S_G'
   img: 'static/img/landing/nomnom.png'
   desc: 'A web app built to take phone orders for restaurants, at call centers. A large number of well
   estabilished restaurants brands from all over India are using services of NomNom'
 
 - name: 'Order Collation'
-  i18n: 'jalpc'
-  gh_user: 'JiaKunUp'
-#  repo: 'jalpc_jekyll_theme'
+  i18n: 'S_G'
   img: 'static/img/landing/nomnom.png'
   desc: " service built to interact with different offline and online Point of Sale system's in India and push all
   the collated orders from different sources in the respective pos systems."
 
 
 - name: 'Order Pusher'
-  i18n: 'angularjs'
-  gh_user: 'JiaKunUp'
-#  repo: 'Jalpc-A'
+  i18n: 'S_G'
   img: 'static/img/landing/nomnom.png'
   desc: "A service which allows all the orders of a restaurant from different sources (phone, website, zomato etc)
   to be collated in single place."
 
 - name: 'ShopKare'
-  i18n: 'rsser'
-  gh_user: 'JiaKunUp'
-#  repo: 'Rsser'
+  i18n: 'S_G'
+  gh_user: 'saurabh1e'
   img: 'static/img/landing/shopkare.png'
   desc: "An eCommerce website built for a client to sell grocery's, house hold essential's and over the counter medicines online."
 
 - name: 'Whomely'
-  i18n: 'familycode'
+  i18n: 'S_G'
   img: 'static/img/landing/whomely.png'
   desc: "A website built for a client to sell home like dishes."
 
 - name: 'Flask Seed'
-  i18n: 'leetcode'
+  i18n: 'S_G'
   gh_user: 'saurabh1e'
   repo: 'SuperFlaskSeed'
   img: 'static/img/landing/flask.png'
