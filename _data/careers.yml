@@ -3,7 +3,11 @@
     detail: Refiral
     i18n: reiral
   desc:
-    detail: Now I am in Refiral working as software developer building the product NomNom.
+    detail: 'I was working as full stack developer, building the product NomNom single-handedly. NomNom is a
+    centralised order taking solution for Restaurants. There are lot of other services which I built surrounding
+    the main products like order collation service
+    from various sources (Zomato, Swiggy, FoodPanda) and
+     order pushing service of collated orders on different online and offline pos systems (POSIST, Limetray, SparkTech, Zomato Base).'
     i18n: refiral_des
   date:
     detail: Aug. 2015
