@@ -54,6 +54,6 @@
   i18n: 'S_G'
   gh_user: 'saurabh1e'
   repo: 'SuperFlaskSeed'
-  url: 'SuperFlaskSeed'
+  url: 'https://github.com/saurabh1e/SuperFlaskSeed'
   img: 'static/img/landing/flask.png'
   desc: "Seed app for flask with lot of stuff baked in which allows to generate super awesome RestFul api's"
