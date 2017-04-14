@@ -9,7 +9,7 @@
 - name: 'Open POS Frontend'
   i18n: 'S_G'
   gh_user: 'saurabh1e'
-  repo: 'open-pos-frontend'
+  repo: 'open-pos'
   img: 'static/img/landing/open-pos.svg'
   desc: "Open Source Point of Sale system in development, can be used in Pharmacy, Grocery Store, Cafe etc"
 
