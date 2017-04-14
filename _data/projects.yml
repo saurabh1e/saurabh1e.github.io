@@ -25,6 +25,7 @@
 - name: 'Order Collation'
   i18n: 'S_G'
   img: 'static/img/landing/nomnom.png'
+  url: ''
   desc: " service built to interact with different offline and online Point of Sale system's in India and push all
   the collated orders from different sources in the respective pos systems."
 
@@ -32,6 +33,7 @@
 - name: 'Order Pusher'
   i18n: 'S_G'
   img: 'static/img/landing/nomnom.png'
+  url: ''
   desc: "A service which allows all the orders of a restaurant from different sources (phone, website, zomato etc)
   to be collated in single place."
 
