@@ -3,6 +3,7 @@
   i18n: 'S_G'
   gh_user: 'saurabh1e'
   repo: 'open-pos-api'
+  url: 'http://coderin.me/open-pos/'
   img: 'static/img/landing/open-pos.svg'
   desc: "Open Source Point of Sale system in development, can be used in Pharmacy, Grocery Store, Cafe etc"
 
@@ -10,11 +11,13 @@
   i18n: 'S_G'
   gh_user: 'saurabh1e'
   repo: 'open-pos'
+  url: 'http://coderin.me/open-pos/'
   img: 'static/img/landing/open-pos.svg'
   desc: "Open Source Point of Sale system in development, can be used in Pharmacy, Grocery Store, Cafe etc"
 
 - name: 'NomNom'
   i18n: 'S_G'
+  url: 'http://hellonomnom.com/'
   img: 'static/img/landing/nomnom.png'
   desc: 'A web app built to take phone orders for restaurants, at call centers. A large number of well
   estabilished restaurants brands from all over India are using services of NomNom'
@@ -35,11 +38,13 @@
 - name: 'ShopKare'
   i18n: 'S_G'
   gh_user: 'saurabh1e'
+  url: 'http://shopkare.com'
   img: 'static/img/landing/shopkare.png'
   desc: "An eCommerce website built for a client to sell grocery's, house hold essential's and over the counter medicines online."
 
 - name: 'Whomely'
   i18n: 'S_G'
+  url: 'http://whomely.com'
   img: 'static/img/landing/whomely.png'
   desc: "A website built for a client to sell home like dishes."
 
@@ -47,5 +52,6 @@
   i18n: 'S_G'
   gh_user: 'saurabh1e'
   repo: 'SuperFlaskSeed'
+  url: 'SuperFlaskSeed'
   img: 'static/img/landing/flask.png'
   desc: "Seed app for flask with lot of stuff baked in which allows to generate super awesome RestFul api's"
