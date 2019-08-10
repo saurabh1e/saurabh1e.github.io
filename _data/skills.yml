@@ -1,12 +1,12 @@
 # skills section data
 - name: Python
-  percentage: 70
+  percentage: 80
 
 - name: Flask
-  percentage: 75
+  percentage: 90
 
 - name: RestFul Api's
-  percentage: 75
+  percentage: 85
 
 - name: NodeJS
   percentage: 75
@@ -21,15 +21,12 @@
   percentage: 70
 
 - name: AWS
-  percentage: 70
+  percentage: 80
 
 - name: Kubernetes
   percentage: 70
 
-- name: Angular2
-  percentage: 80
-
-- name: AngularJS
+- name: Angular
   percentage: 80
 
 - name: MongoDB
@@ -41,8 +38,8 @@
 - name: HTML/CSS
   percentage: 65
 
-- name: Ionic/Ionic2
-  percentage: 70
+- name: Flutter
+  percentage: 40
 
 - name: Redis
   percentage: 70

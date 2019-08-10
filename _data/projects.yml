@@ -1,59 +1,54 @@
 # projects section data
-- name: 'Open POS Api'
+- name: 'POSify'
   i18n: 'S_G'
-  gh_user: 'saurabh1e'
-  repo: 'open-pos-api'
-  url: 'http://coderin.me/open-pos/'
-  img: 'static/img/landing/open-pos.svg'
-  desc: "Open Source Point of Sale system in development, can be used in Pharmacy, Grocery Store, Cafe etc"
+  url: 'https://zoai.in'
+  img: 'static/img/landing/posify.png'
+  desc: "Point of sales system build for restaurants"
 
-- name: 'Open POS Frontend'
+- name: 'Link'
   i18n: 'S_G'
-  gh_user: 'saurabh1e'
-  repo: 'open-pos'
-  url: 'http://coderin.me/open-pos/'
-  img: 'static/img/landing/open-pos.svg'
-  desc: "Open Source Point of Sale system in development, can be used in Pharmacy, Grocery Store, Cafe etc"
+  url: 'https://zoai.in'
+  img: 'static/img/landing/hero.png'
+  desc: "Single Page Dashboard to manage orders from aggregator"
 
-- name: 'NomNom'
+- name: 'PayNudge'
   i18n: 'S_G'
-  url: 'http://hellonomnom.com/'
-  img: 'static/img/landing/nomnom.png'
-  desc: 'A web app built to take phone orders for restaurants, at call centers. A large number of well
-  estabilished restaurants brands from all over India are using services of NomNom'
+  repo: 'payNudge'
+  url: 'https://paynudge.in/'
+  img: 'static/img/landing/paynudge.png'
+  desc: 'A web app built for small business owners to collect payment'
 
-- name: 'Order Collation'
+- name: 'Jeebly'
   i18n: 'S_G'
-  img: 'static/img/landing/nomnom.png'
-  url: ''
-  desc: " service built to interact with different offline and online Point of Sale system's in India and push all
-  the collated orders from different sources in the respective pos systems."
+  img: 'static/img/landing/jeebly.svg'
+  url: 'http://www.jeebly.com/'
+  desc: "Built a delivery tracking system for Jeebly LLC (Dubai)"
 
 
-- name: 'Order Pusher'
+- name: 'Centralised Order Management'
   i18n: 'S_G'
   img: 'static/img/landing/nomnom.png'
-  url: ''
+  url: 'http://hellonomnom.com'
   desc: "A service which allows all the orders of a restaurant from different sources (phone, website, zomato etc)
   to be collated in single place."
 
-- name: 'ShopKare'
-  i18n: 'S_G'
-  gh_user: 'saurabh1e'
-  url: 'http://shopkare.com'
-  img: 'static/img/landing/shopkare.png'
-  desc: "An eCommerce website built for a client to sell grocery's, house hold essential's and over the counter medicines online."
-
-- name: 'Whomely'
-  i18n: 'S_G'
-  url: 'http://whomely.com'
-  img: 'static/img/landing/whomely.png'
-  desc: "A website built for a client to sell home like dishes."
-
-- name: 'Flask Seed'
-  i18n: 'S_G'
-  gh_user: 'saurabh1e'
-  repo: 'SuperFlaskSeed'
-  url: 'https://github.com/saurabh1e/SuperFlaskSeed'
-  img: 'static/img/landing/flask.png'
-  desc: "Seed app for flask with lot of stuff baked in which allows to generate super awesome RestFul api's"
+#- name: 'ShopKare'
+#  i18n: 'S_G'
+#  gh_user: 'saurabh1e'
+#  url: 'http://shopkare.com'
+#  img: 'static/img/landing/shopkare.png'
+#  desc: "An eCommerce website built for a client to sell grocery's, house hold essential's and over the counter medicines online."
+#
+#- name: 'Whomely'
+#  i18n: 'S_G'
+#  url: 'http://whomely.com'
+#  img: 'static/img/landing/whomely.png'
+#  desc: "A website built for a client to sell home like dishes."
+#
+#- name: 'Flask Seed'
+#  i18n: 'S_G'
+#  gh_user: 'saurabh1e'
+#  repo: 'SuperFlaskSeed'
+#  url: 'https://github.com/saurabh1e/SuperFlaskSeed'
+#  img: 'static/img/landing/flask.png'
+#  desc: "Seed app for flask with lot of stuff baked in which allows to generate super awesome RestFul api's"

@@ -1,4 +1,52 @@
 # careers section data
+
+
+
+- name:
+    detail: Roadcast
+    i18n: roadcast
+  desc:
+    detail: 'Working as a consultant for RoadCast PVT LTD, where I am handling there tech development and building '
+    i18n: roadcast_des
+  date:
+    detail: Mar. 2019
+    i18n: roadcast_date
+  job:
+    detail: Consultant
+    i18n: roadcast_job
+  icon: fa-plus-square
+
+- name:
+    detail: Posify
+    i18n: posify
+  desc:
+    detail: 'Started my own SAAS company which build Point of Sale System, Inventory and Analytics solutions for restaurant industry.
+    Currently we are serving some of the biggest F&B brands in India'
+    i18n: posify_des
+  date:
+    detail: Mar. 2017
+    i18n: posify_date
+  job:
+    detail: Founder
+    i18n: posify_job
+  icon: fa-plus-square
+
+
+- name:
+    detail: Whomely
+    i18n: whomely
+  desc:
+    detail: 'This I was a freelance project in which I build a food ordering website and integrated with
+    the delivery tracking system (Jooleh)'
+    i18n: whomely_des
+  date:
+    detail: Nov. 2015 - Sep. 2016
+    i18n: whomely_date
+  job:
+    detail: Software Developer
+    i18n: whomely_job
+  icon: fa-plus-square
+
 - name:
     detail: Refiral
     i18n: reiral
@@ -10,7 +58,7 @@
      order pushing service of collated orders on different online and offline pos systems (POSIST, Limetray, SparkTech, Zomato Base).'
     i18n: refiral_des
   date:
-    detail: Aug. 2015
+    detail: Aug. 2015 - Mar. 2017
     i18n: refiral_date
   job:
     detail: Software Developer
@@ -24,7 +72,7 @@
     detail: In DroidShift, I learned writing microservices and writing RestFul API's.
     i18n: droid_shift_des
   date:
-    detail: Jan. 2015
+    detail: Jan. 2015 - June. 2015
     i18n: droid_shift_date
   job:
     detail: Jr. Software Developer
@@ -38,7 +86,7 @@
     detail: At June 2015,I graduated from college and started my IT technology tour.
     i18n: college_des
   date:
-    detail: June 2015
+    detail: June. 2011 - June. 2015
     i18n: college_date
   job:
     detail: Student
